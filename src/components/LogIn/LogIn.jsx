@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthProvider';
 
 const LogIn = () => {
-  const { user, signIn } = useContext(AuthContext);
+  const { user, signIn, googleSignIn } = useContext(AuthContext);
 
         const handleSubmit = (event) => {
           event.preventDefault();
@@ -21,7 +21,17 @@ const LogIn = () => {
             .catch(error => {
             console.error(error);
           })
-        };
+  };
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+      .then(result => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch(error => {
+      console.error(error);
+    })
+  }
     return (
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col">
@@ -63,6 +73,7 @@ const LogIn = () => {
                 </button>
               </Link>
             </form>
+            <button onClick={handleGoogleSignIn} className='w-full btn btn-primary'>Google</button>
           </div>
         </div>
       </div>
